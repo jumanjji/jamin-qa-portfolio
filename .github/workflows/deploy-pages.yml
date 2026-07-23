@@ -33,7 +33,7 @@ jobs:
       - name: Build static site
         run: npm run build:pages
         env:
-          PAGES_BASE_PATH: /jamin-qa-portfolio
+          PAGES_BASE_PATH: ""
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
