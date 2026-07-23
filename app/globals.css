@@ -575,7 +575,12 @@ h1 em {
   padding: 7px 10px;
   border-radius: 999px;
   background: var(--acid);
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
   font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  text-transform: uppercase;
 }
 
 .experience-meta p {
@@ -641,6 +646,10 @@ h1 em {
   gap: 4vw;
   align-items: start;
   margin-bottom: 48px;
+}
+
+.previous-heading .experience-year {
+  justify-self: start;
 }
 
 .previous-heading h3 {
@@ -917,17 +926,19 @@ h1 em {
   align-items: end;
   margin-top: 18px;
   padding: clamp(46px, 6vw, 80px);
-  background: var(--blue);
-  color: white;
+  background: var(--acid);
+  border: 1px solid var(--ink);
+  color: var(--ink);
 }
 
 .writing-callout .card-label {
-  color: var(--acid);
+  color: var(--blue);
 }
 
 .writing-callout h3 {
   max-width: 760px;
   margin-bottom: 0;
+  color: var(--ink);
   font-size: clamp(2.8rem, 5vw, 5.8rem);
   letter-spacing: -0.06em;
   line-height: 0.94;
@@ -938,9 +949,13 @@ h1 em {
 }
 
 .writing-callout > div:last-child > p {
-  color: rgba(255, 255, 255, 0.74);
+  color: rgba(17, 17, 17, 0.68);
   font-size: 15px;
   line-height: 1.72;
+}
+
+.writing-callout .placeholder-link {
+  color: var(--ink);
 }
 
 .placeholder-link-dark > span {
@@ -1012,6 +1027,15 @@ h1 em {
   background: var(--blue);
 }
 
+.principle-card-light {
+  background: var(--paper-bright);
+  color: var(--ink);
+}
+
+.principle-card-light .card-label {
+  color: var(--blue);
+}
+
 .principle-card-acid {
   background: var(--acid);
   color: var(--ink);
@@ -1025,6 +1049,7 @@ h1 em {
   margin-bottom: auto;
   font-family: var(--font-mono), monospace;
   font-size: 10px;
+  font-weight: 800;
   letter-spacing: 0.08em;
 }
 
@@ -1047,6 +1072,10 @@ h1 em {
 
 .principle-card-acid > p:last-child {
   color: rgba(17, 17, 17, 0.68);
+}
+
+.principle-card-light > p:last-child {
+  color: var(--muted);
 }
 
 .philosophy-quote {
@@ -1179,9 +1208,10 @@ h1 em {
 
 .whoami-intro {
   display: grid;
+  width: min(100%, 1160px);
   grid-template-columns: minmax(280px, 0.8fr) minmax(400px, 1fr);
-  gap: 8vw;
-  margin: 0 0 84px calc(35% + 1vw);
+  gap: clamp(48px, 6vw, 104px);
+  margin: 0 0 84px;
   padding-top: 44px;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
@@ -1337,28 +1367,17 @@ h1 em {
   font-size: clamp(2rem, 3vw, 3.5rem);
 }
 
-.language-card {
-  grid-column: span 4;
-  padding-bottom: 28px;
-  background: var(--ink);
-  color: white;
-}
-
-.language-card .identity-card-top {
-  border-color: rgba(255, 255, 255, 0.22);
-}
-
 .language-list {
   display: grid;
   grid-template-columns: 1fr auto;
-  margin: auto 24px 28px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 28px;
+  border-top: 1px solid var(--line);
 }
 
 .language-list span,
 .language-list strong {
   padding: 14px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid var(--line);
 }
 
 .language-list span {
@@ -1366,7 +1385,7 @@ h1 em {
 }
 
 .language-list strong {
-  color: var(--acid);
+  color: var(--blue);
   font-family: var(--font-mono), monospace;
   font-size: 8px;
   font-weight: 600;
@@ -1374,26 +1393,57 @@ h1 em {
   text-transform: uppercase;
 }
 
-.language-card > p {
-  margin: 0 24px;
-  color: rgba(255, 255, 255, 0.62) !important;
+.film-card {
+  min-height: 620px;
+  grid-column: 1 / -1;
+  background: var(--ink);
+  color: white;
 }
 
-.film-card {
+.film-card .identity-card-top {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.film-card .identity-kicker {
+  color: var(--acid);
+}
+
+.film-card p:not(.identity-kicker) {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.film-card-content {
   display: grid;
-  min-height: 420px;
-  grid-column: 1 / -1;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 8vw;
+  flex: 1;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  gap: clamp(48px, 8vw, 140px);
   align-items: end;
   padding: clamp(40px, 6vw, 84px);
-  background: var(--paper);
 }
 
 .film-card h3 {
   max-width: 850px;
   margin-bottom: 0;
   font-size: clamp(3.2rem, 6.5vw, 7.2rem);
+}
+
+.film-card-side {
+  align-self: stretch;
+}
+
+.film-card-visual {
+  margin: 0 14px 42px 0;
+  padding: 9px;
+  background: var(--paper-bright);
+  box-shadow: 14px 14px 0 var(--blue);
+  transform: rotate(1deg);
+}
+
+.film-card-visual img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }
 
 .film-card-copy {
@@ -1503,6 +1553,8 @@ footer p {
   }
 
   .whoami-intro {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+    gap: clamp(32px, 5vw, 64px);
     margin-left: 0;
   }
 
@@ -1514,12 +1566,7 @@ footer p {
     width: 56%;
   }
 
-  .image-card.reading-card {
-    grid-column: span 12;
-  }
-
-  .image-card,
-  .language-card {
+  .image-card {
     grid-column: span 6;
   }
 
@@ -1733,8 +1780,7 @@ footer p {
   }
 
   .culture-card,
-  .image-card,
-  .language-card {
+  .image-card {
     grid-column: auto;
   }
 
@@ -1764,10 +1810,14 @@ footer p {
     margin: 12px 31px 18px;
   }
 
-  .film-card {
+  .film-card-content {
     grid-template-columns: 1fr;
     gap: 42px;
-    padding: 42px 24px;
+    padding: 42px 24px 54px;
+  }
+
+  .film-card-visual {
+    margin-right: 10px;
   }
 
   .philosophy-intro {

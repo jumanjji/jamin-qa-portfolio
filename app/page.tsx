@@ -1,4 +1,4 @@
-const githubUrl = "https://github.com/";
+const githubUrl = "https://github.com/jumanjji";
 const linkedInUrl = "https://www.linkedin.com/in/jamin-chaput/";
 const assetBasePath = process.env.PAGES_BASE_PATH ?? "";
 
@@ -61,7 +61,7 @@ export default function Home() {
             I find the gaps between <em>expected</em> and actual.
           </h1>
           <p className="hero-intro">
-            I test complex digital products across mobile, web, and APIs—then
+            I test complex digital products across mobile, web, and APIs, then
             build the automation and feedback loops that help teams ship with
             confidence.
           </p>
@@ -131,7 +131,7 @@ export default function Home() {
             <p>
               Native mobile apps are my specialty: understanding how iOS and
               Android should feel, not only whether they technically work. I
-              also bring deep familiarity with product analytics—from
+              also bring deep familiarity with product analytics, from
               structuring clear event schemas to validating the signals teams
               use to understand real user behaviour.
             </p>
@@ -152,9 +152,11 @@ export default function Home() {
             <h3>Testing the paths people rely on when the story matters.</h3>
             <p>
               Supporting quality across iOS and Android news experiences,
-              internal mobile products, and multiplatform readiness for the
-              2026 Winter Olympics. My work combines exploratory testing,
-              release validation, automation, and API-level investigation.
+              internal analytics products, and collaborating in multiplatform
+              readiness for large events like the 2026 Winter Olympics and
+              election cycles. My work combines exploratory testing, release
+              validation, automation with Appium and Playwright, and API-level
+              investigation.
             </p>
             <ul className="skill-list" aria-label="Core skills">
               <li>Mobile QA</li>
@@ -168,7 +170,7 @@ export default function Home() {
 
         <section className="previous-work" aria-labelledby="previous-work-title">
           <div className="previous-heading">
-            <p className="card-label">Previous experience</p>
+            <span className="experience-year">Previous experience</span>
             <h3 id="previous-work-title">
               Product-minded QA across fintech and community platforms.
             </h3>
@@ -178,7 +180,7 @@ export default function Home() {
             <article className="previous-card previous-card-dark">
               <div className="previous-card-top">
                 <span>KOHO Financial</span>
-                <span>Nov 2019 — May 2020</span>
+                <span>2019 — 2020</span>
               </div>
               <div>
                 <p className="repo-kicker">QA Lead · Toronto</p>
@@ -202,17 +204,18 @@ export default function Home() {
             <article className="previous-card">
               <div className="previous-card-top">
                 <span>Bunz</span>
-                <span>Dec 2017 — Sep 2019</span>
+                <span>2017 — 2019</span>
               </div>
               <div>
-                <p className="repo-kicker">QA Analyst · Toronto</p>
+                <p className="repo-kicker">QA Analyst / Lead · Toronto</p>
                 <h4>Owning quality from the roadmap to release.</h4>
                 <p>
                   Oversaw software updates across iOS, Android, and web;
-                  contributed to roadmap strategy and every sprint plan; and
-                  wrote feature and sprint specifications. I tested front-end
-                  and back-end code manually while guiding the strategy for
-                  mobile test automation.
+                  contributed to roadmap strategy, sprint planning; and
+                  wrote feature and technical specifications. I tested front-end
+                  and back-end code while guiding the strategy for
+                  mobile test automation. Also did basic blockchain transaction 
+                  testing with ERC-20 tokens and smart contracts.
                 </p>
               </div>
               <ul className="previous-tags" aria-label="Bunz experience">
@@ -220,6 +223,8 @@ export default function Home() {
                 <li>Mobile + web</li>
                 <li>Sprint planning</li>
                 <li>Test strategy</li>
+                <li>Marketplace</li>
+                <li>Cryptocurrency</li>
               </ul>
             </article>
           </div>
@@ -232,7 +237,7 @@ export default function Home() {
                 Outside formal roles, I take on contract QA work for websites
                 and mobile applications, keep expanding my coding skills in
                 JavaScript and Elixir, and collaborate with friends on product
-                ideas—from early feature shaping through testing and launch
+                ideas, from early feature shaping through testing and launch
                 readiness.
               </p>
             </div>
@@ -298,7 +303,7 @@ export default function Home() {
           </article>
         </div>
 
-        <div className="future-grid" aria-label="Future project placeholders">
+        {/* <div className="future-grid" aria-label="Future project placeholders">
           <article className="future-card">
             <span className="future-index">03</span>
             <div>
@@ -323,7 +328,7 @@ export default function Home() {
             </div>
             <span className="placeholder-pill">Future project</span>
           </article>
-        </div>
+        </div> */}
 
         <aside className="writing-callout">
           <div>
@@ -374,7 +379,7 @@ export default function Home() {
               the whole team make better decisions throughout it.
             </p>
             <p>
-              To me, being QA means being the user—with enough empathy,
+              To me, being QA means being the user, with enough empathy,
               curiosity, and platform knowledge to notice when an experience
               does not feel right, even if it technically “works.”
             </p>
@@ -383,7 +388,7 @@ export default function Home() {
 
         <div className="principle-grid">
           <article className="principle-card principle-card-blue">
-            <span className="principle-index">01</span>
+            <span className="principle-index">A</span>
             <p className="card-label">Collaborate first</p>
             <h3>Quality is a team sport.</h3>
             <p>
@@ -391,8 +396,8 @@ export default function Home() {
               release gate into a source of shared product understanding.
             </p>
           </article>
-          <article className="principle-card">
-            <span className="principle-index">02</span>
+          <article className="principle-card principle-card-light">
+            <span className="principle-index">B</span>
             <p className="card-label">Native means native</p>
             <h3>A gesture can be a requirement.</h3>
             <p>
@@ -407,7 +412,7 @@ export default function Home() {
             </p>
           </article>
           <article className="principle-card principle-card-acid">
-            <span className="principle-index">03</span>
+            <span className="principle-index">C</span>
             <p className="card-label">Automation + judgment</p>
             <h3>Expected paths are only the start.</h3>
             <p>
@@ -421,13 +426,13 @@ export default function Home() {
           </article>
         </div>
 
-        <blockquote className="philosophy-quote">
+        {/* <blockquote className="philosophy-quote">
           <span aria-hidden="true">“</span>
           <p>
             Anyone can test one expected happy path. A QA has to imagine ten
             unhappy paths around it.
           </p>
-        </blockquote>
+        </blockquote> */}
 
         <article className="bar-story">
           <div className="bar-visual">
@@ -490,7 +495,7 @@ export default function Home() {
 
         <div className="whoami-intro">
           <p className="about-lead">
-            I like working for people who are looking for a person—not just a
+            I like working for people who are looking for a person, not just a
             set of skills.
           </p>
           <div className="about-copy">
@@ -498,7 +503,7 @@ export default function Home() {
               Curiosity shapes how I test, but it also shapes the rest of my
               life. I am always learning a language, carrying a camera, reading
               one more chapter, or finding a reason to get beneath the surface.
-              Those interests are not separate from how I work—they are where
+              Those interests are not separate from how I work, they are where
               my attention to detail, empathy, and sense of exploration come
               from.
             </p>
@@ -531,6 +536,10 @@ export default function Home() {
           </article>
 
           <article className="identity-card image-card reading-card">
+            <div className="identity-card-top">
+              <span>02</span>
+              <span>Reading</span>
+            </div>
             <img
               src={`${assetBasePath}/whoami-reading.webp`}
               alt="Abstract illustration of an open book transforming into three orbiting celestial bodies"
@@ -540,14 +549,18 @@ export default function Home() {
               <h3>One more chapter.</h3>
               <p>
                 I am currently on book three of the <em>Three-Body Problem</em>
-                series. Haruki Murakami is my favourite author, and I will
-                happily disappear into fantasy, science fiction, adventure—or
+                {" "}series. Haruki Murakami is my favourite author, and I will
+                happily disappear into fantasy, science fiction, adventure, or
                 a good vintage Archie comic.
               </p>
             </div>
           </article>
 
           <article className="identity-card image-card">
+            <div className="identity-card-top">
+              <span>03</span>
+              <span>Photography</span>
+            </div>
             <img
               src={`${assetBasePath}/whoami-camera.webp`}
               alt="Abstract illustration of a compact film camera and curling strip of 35mm film"
@@ -565,6 +578,10 @@ export default function Home() {
           </article>
 
           <article className="identity-card image-card">
+            <div className="identity-card-top">
+              <span>04</span>
+              <span>Scuba diving</span>
+            </div>
             <img
               src={`${assetBasePath}/whoami-scuba.webp`}
               alt="Abstract illustration of a scuba diver exploring calm blue water"
@@ -582,59 +599,83 @@ export default function Home() {
             </div>
           </article>
 
-          <article className="identity-card language-card">
+          <article className="identity-card image-card languages-card">
             <div className="identity-card-top">
               <span>05</span>
               <span>Languages</span>
             </div>
-            <div className="language-list" aria-label="Languages spoken">
-              <span>English</span>
-              <strong>Fluent</strong>
-              <span>Spanish</span>
-              <strong>Fluent</strong>
-              <span>French</span>
-              <strong>Conversational</strong>
-              <span>Italian</span>
-              <strong>Learning</strong>
+            <img
+              src={`${assetBasePath}/whoami-languages.webp`}
+              alt="Four abstract speech forms orbiting a globe"
+            />
+            <div className="identity-card-body">
+              <p className="identity-kicker">Languages</p>
+              <h3>I love languages.</h3>
+
+              <div className="language-list" aria-label="Languages spoken">
+                <span>English</span>
+                <strong>Fluent</strong>
+                <span>Spanish</span>
+                <strong>Fluent</strong>
+                <span>French</span>
+                <strong>Conversational</strong>
+                <span>Italian</span>
+                <strong>Learning</strong>
+                <span>Cree</span>
+                <strong>Improving</strong>
+              </div>
             </div>
-            <p>
-              I love languages. Right now I am improving my Italian for an
-              upcoming trip to Sardinia.
-            </p>
           </article>
 
           <article className="identity-card film-card">
-            <div>
-              <p className="identity-kicker">Film</p>
-              <h3>
-                Directors, scores, and the beautiful absence of a cut.
-              </h3>
+            <div className="identity-card-top">
+              <span>06</span>
+              <span>Film</span>
             </div>
-            <div className="film-card-copy">
-              <p>
-                I love movies. If you let me talk about framing, directors,
-                scores, or how Tarkovsky filmed that one 15-minute scene with
-                no cuts, we will be here all day.
-              </p>
-              <a
-                href="https://letterboxd.com/jumanjji/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Check out my Letterboxd <ExternalIcon />
-              </a>
+            <div className="film-card-content">
+              <div>
+                <p className="identity-kicker">Film</p>
+                <h3>
+                  Directors, scores, and the beautiful absence of a cut.
+                </h3>
+              </div>
+              <div className="film-card-side">
+                <figure className="film-card-visual">
+                  <img
+                    src={`${assetBasePath}/whoami-film.webp`}
+                    alt="A film projector casting light through a sequence of cinematic frames"
+                  />
+                </figure>
+                <div className="film-card-copy">
+                  <p>
+                    I love movies. If you let me talk about framing, directors,
+                    scores, or how Tarkovsky filmed that one 15-minute scene
+                    with no cuts, we will be here all day.
+                  </p>
+                  <a
+                    href="https://letterboxd.com/jumanjji/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Check out my Letterboxd <ExternalIcon />
+                  </a>
+                </div>
+              </div>
             </div>
           </article>
         </div>
       </section>
 
       <section className="contact-section" id="contact">
-        <p className="section-number">04 / Connect</p>
+        <p className="section-number" style={{ alignSelf: "start" }}>
+          04 / Connect
+        </p>
         <div className="contact-main">
           <h2>Let&apos;s make quality a feature.</h2>
           <p>
             Want to talk mobile testing, automation strategy, or a role where
-            product thinking and quality engineering meet?
+            product thinking and quality engineering meet? Or would you like
+            a similar portfolio for your own work? I&apos;d love to hear from you.
           </p>
         </div>
         <div className="contact-links">
@@ -644,7 +685,7 @@ export default function Home() {
           <a href={githubUrl} target="_blank" rel="noreferrer">
             GitHub <ExternalIcon />
           </a>
-          <a href="mailto:your.email@example.com">
+          <a href="mailto:hello@jamin.qa">
             Add email <ArrowIcon />
           </a>
         </div>
