@@ -1,6 +1,11 @@
 "use client";
 
-import { useState, type AnimationEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type AnimationEvent,
+} from "react";
 
 type HeroVisualProps = {
   assetBasePath: string;
@@ -11,20 +16,39 @@ export default function HeroVisual({ assetBasePath }: HeroVisualProps) {
   const [movingCard, setMovingCard] = useState<
     "portrait" | "signal" | null
   >(null);
+  const fallbackTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const suppressNextClick = useRef(false);
 
   const swapLayers = () => {
     if (movingCard) return;
-    setMovingCard(portraitInFront ? "portrait" : "signal");
+    const card = portraitInFront ? "portrait" : "signal";
+    setMovingCard(card);
+    fallbackTimer.current = setTimeout(() => completeSwap(card), 950);
+  };
+
+  const completeSwap = (card: "portrait" | "signal") => {
+    if (fallbackTimer.current) {
+      clearTimeout(fallbackTimer.current);
+      fallbackTimer.current = null;
+    }
+    setPortraitInFront(card === "signal");
+    setMovingCard(null);
   };
 
   const finishSwap = (
     card: "portrait" | "signal",
     event: AnimationEvent<HTMLElement>,
   ) => {
-    if (event.animationName !== "layer-orbit") return;
-    setPortraitInFront(card === "signal");
-    setMovingCard(null);
+    if (!event.animationName.includes("layer-orbit")) return;
+    completeSwap(card);
   };
+
+  useEffect(
+    () => () => {
+      if (fallbackTimer.current) clearTimeout(fallbackTimer.current);
+    },
+    [],
+  );
 
   return (
     <div
@@ -37,6 +61,14 @@ export default function HeroVisual({ assetBasePath }: HeroVisualProps) {
         .filter(Boolean)
         .join(" ")}
     >
+      <input
+        className="mobile-layer-toggle"
+        id="mobile-layer-toggle"
+        type="checkbox"
+        autoComplete="off"
+        aria-label="Swap portrait and quality signal layers"
+      />
+
       <figure
         className="portrait-frame"
         onAnimationEnd={(event) => finishSwap("portrait", event)}
@@ -94,7 +126,19 @@ export default function HeroVisual({ assetBasePath }: HeroVisualProps) {
         }
         aria-pressed={portraitInFront}
         disabled={movingCard !== null}
-        onClick={swapLayers}
+        onPointerDown={(event) => {
+          if (event.pointerType !== "mouse") {
+            suppressNextClick.current = true;
+            swapLayers();
+          }
+        }}
+        onClick={() => {
+          if (suppressNextClick.current) {
+            suppressNextClick.current = false;
+            return;
+          }
+          swapLayers();
+        }}
       >
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
           <path
@@ -105,6 +149,20 @@ export default function HeroVisual({ assetBasePath }: HeroVisualProps) {
         </svg>
         <span>Swap layers</span>
       </button>
+
+      <label
+        className="visual-swap-button mobile-swap-label"
+        htmlFor="mobile-layer-toggle"
+      >
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M7 7h11M15 4l3 3-3 3M17 17H6M9 14l-3 3 3 3"
+            stroke="currentColor"
+            strokeWidth="1.8"
+          />
+        </svg>
+        <span>Swap layers</span>
+      </label>
     </div>
   );
 }
