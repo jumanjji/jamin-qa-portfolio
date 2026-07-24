@@ -1,3 +1,5 @@
+import HeroVisual from "./HeroVisual";
+
 const githubUrl = "https://github.com/jumanjji";
 const linkedInUrl = "https://www.linkedin.com/in/jamin-chaput/";
 const assetBasePath = process.env.PAGES_BASE_PATH ?? "";
@@ -33,8 +35,16 @@ export default function Home() {
           <span className="wordmark-mark" aria-hidden="true">
             J
           </span>
-          <span>
-            Jamin
+          <span className="wordmark-copy">
+            <span className="wordmark-name">
+              Jamin
+              <span
+                className="wordmark-pronunciation"
+                aria-label="Pronounced Jay min"
+              >
+                JAY-min · /ˈdʒeɪ.mɪn/
+              </span>
+            </span>
             <small>Quality Engineer</small>
           </span>
         </a>
@@ -75,47 +85,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="hero-visual">
-          <figure className="portrait-frame">
-            <img
-              src={`${assetBasePath}/jamin-portrait.webp`}
-              alt="Portrait of Jamin"
-            />
-            <figcaption>
-              <span>Jamin</span>
-              <span>QA · Toronto</span>
-            </figcaption>
-          </figure>
-
-          <div className="signal-card" aria-label="Quality signal summary">
-            <div className="signal-card-top">
-              <span>RELEASE_SIGNAL</span>
-              <span className="live-label">
-                <span className="status-dot" /> LIVE
-              </span>
-            </div>
-            <div className="signal-score">
-              <span className="signal-number">96</span>
-              <span className="signal-unit">%</span>
-              <p>Confidence, made visible.</p>
-            </div>
-            <div className="signal-grid">
-              <div>
-                <span>Surfaces</span>
-                <strong>iOS · Android · Web</strong>
-              </div>
-              <div>
-                <span>Automation</span>
-                <strong>Appium · Playwright</strong>
-              </div>
-              <div>
-                <span>Approach</span>
-                <strong>Explore · Verify · Improve</strong>
-              </div>
-            </div>
-            <div className="scan-line" aria-hidden="true" />
-          </div>
-        </div>
+        <HeroVisual assetBasePath={assetBasePath} />
 
         <a className="scroll-cue" href="#work" aria-label="Scroll to work">
           <span>SCROLL TO PROOF</span>
@@ -135,9 +105,34 @@ export default function Home() {
               structuring clear event schemas to validating the signals teams
               use to understand real user behaviour.
             </p>
-            <span className="placeholder-link" role="link" aria-disabled="true">
-              Download résumé <span>Coming soon</span>
-            </span>
+            <a
+              className="resume-download"
+              href={`${assetBasePath}/Jamin_Chaput_résumé.pdf`}
+              download
+            >
+              <span className="resume-download-icon" aria-hidden="true">
+                <svg viewBox="0 0 20 20" fill="none">
+                  <path
+                    d="M10 3v10M6 9l4 4 4-4M4 17h12"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                  />
+                </svg>
+              </span>
+              <span className="resume-download-copy">
+                <strong>Download résumé</strong>
+                <small>PDF · 2 pages</small>
+              </span>
+              <span className="resume-download-arrow" aria-hidden="true">
+                <svg viewBox="0 0 16 16" fill="none">
+                  <path
+                    d="M5 11 11 5M6 5h5v5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  />
+                </svg>
+              </span>
+            </a>
           </div>
         </div>
 
@@ -365,27 +360,6 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="philosophy-intro">
-          <p className="philosophy-lead">
-            People skills are the most important skill in quality assurance.
-          </p>
-          <div className="philosophy-copy">
-            <p>
-              QA is deeply collaborative. We work every day with developers,
-              product managers, designers, analysts, and operations teams. We
-              write technical specifications, organize analytics requirements,
-              and build broad operational knowledge across systems. The job is
-              not standing at the end of a process with a red pen; it is helping
-              the whole team make better decisions throughout it.
-            </p>
-            <p>
-              To me, being QA means being the user, with enough empathy,
-              curiosity, and platform knowledge to notice when an experience
-              does not feel right, even if it technically “works.”
-            </p>
-          </div>
-        </div>
-
         <div className="principle-grid">
           <article className="principle-card principle-card-blue">
             <span className="principle-index">A</span>
@@ -423,6 +397,67 @@ export default function Home() {
               scripts don&apos;t think like users. Every tool has its place,
               and all types of testing are important.
             </p>
+          </article>
+        </div>
+
+        <div className="ai-workflow-break">
+          <article className="ai-workflow">
+          <div className="ai-workflow-heading">
+            <div>
+              <p className="card-label">AI in my workflow</p>
+              <h3>
+                AI should work <em>for you.</em>
+              </h3>
+            </div>
+            <p>
+              Everyone uses AI these days, but does it improve the workflow?
+              Does it save time? Understanding model capacity, token usage, and
+              proper prompting are what make AI work for you, not the other way
+              around. My workflow is token conscious and incredibly productive.
+            </p>
+          </div>
+
+          <div className="ai-workflow-grid">
+            <section>
+              <span>01 / Build</span>
+              <h4>Automation that lasts.</h4>
+              <p>
+                AI helps me write automation faster and add{" "}
+                <code>testTag()</code> and{" "}
+                <code>accessibilityIdentifier</code> to Android and iOS
+                codebases. That gives my tests stable locators and makes them
+                less flaky.
+              </p>
+            </section>
+            <section>
+              <span>02 / Investigate</span>
+              <h4>Better context, sooner.</h4>
+              <p>
+                I use it to research upcoming mobile OS upgrades, strengthen my
+                feedback in design reviews, compile user reports, and break
+                down crash stack traces and breadcrumbs into bug reports that
+                help developers start a fix quickly.
+              </p>
+            </section>
+            <section>
+              <span>03 / Collaborate</span>
+              <h4>Agents with useful context.</h4>
+              <p>
+                My scripts pull Git diffs and PR comments into a ready made
+                prompt with IDE context. An agent can address requested changes
+                without wasting time rebuilding the story from scratch.
+              </p>
+            </section>
+          </div>
+
+          <div className="ai-workflow-close">
+            <p>
+              Knowing when to trust a response, when to iterate, and when to
+              question its assessment is what keeps AI useful and avoids
+              hallucination rabbit holes.
+            </p>
+            <strong>Trust, but verify.</strong>
+          </div>
           </article>
         </div>
 
