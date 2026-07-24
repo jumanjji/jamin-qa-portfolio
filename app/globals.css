@@ -71,6 +71,31 @@ a {
   letter-spacing: -0.02em;
 }
 
+.wordmark-copy,
+.wordmark-name {
+  display: flex;
+  align-items: baseline;
+}
+
+.wordmark-copy {
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.wordmark-name {
+  gap: 8px;
+}
+
+.wordmark-pronunciation {
+  color: var(--muted);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 9px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
 .wordmark small {
   display: block;
   margin-top: 2px;
@@ -193,16 +218,22 @@ footer a:hover::after {
   z-index: 1;
   width: min(100%, 560px);
   justify-self: end;
-  padding: 0 30px 84px 52px;
+  padding: 0 24px 74px 46px;
 }
 
 .portrait-frame {
+  --portrait-rest-transform: rotate(-1.2deg);
+  --portrait-front-transform: translate(18px, 18px) rotate(0.8deg);
   position: relative;
+  z-index: 1;
   margin: 0;
   padding: 12px;
   background: var(--paper-bright);
   box-shadow: 18px 18px 0 var(--blue);
-  transform: rotate(-1.2deg);
+  transform: var(--portrait-rest-transform);
+  transition:
+    box-shadow 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .portrait-frame::before {
@@ -216,9 +247,9 @@ footer a:hover::after {
 .portrait-frame img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 4 / 4.7;
   object-fit: cover;
-  object-position: 50% center;
+  object-position: 46% center;
 }
 
 .portrait-frame figcaption {
@@ -344,11 +375,120 @@ h1 em {
 }
 
 .hero-visual .signal-card {
+  --signal-front-transform: rotate(2.4deg);
+  --signal-back-transform: translate(-34px, -30px) rotate(-1.4deg) scale(0.94);
   position: absolute;
-  right: 0;
-  bottom: 24px;
-  width: min(78%, 390px);
-  transform: rotate(2.4deg);
+  z-index: 2;
+  right: -4px;
+  bottom: 12px;
+  width: min(73%, 370px);
+  transform: var(--signal-front-transform);
+  transition:
+    box-shadow 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hero-visual.is-swapped .portrait-frame {
+  z-index: 3;
+  box-shadow: 18px 18px 0 var(--acid);
+  transform: var(--portrait-front-transform);
+}
+
+.hero-visual.is-swapped .signal-card {
+  z-index: 1;
+  box-shadow: 18px 18px 0 var(--blue);
+  transform: var(--signal-back-transform);
+}
+
+.hero-visual.is-animating.moving-signal .signal-card {
+  --orbit-start-transform: var(--signal-front-transform);
+  --orbit-end-transform: var(--signal-back-transform);
+  animation: layer-orbit 820ms cubic-bezier(0.55, 0.05, 0.18, 1) both;
+}
+
+.hero-visual.is-animating.moving-portrait .portrait-frame {
+  --orbit-start-transform: var(--portrait-front-transform);
+  --orbit-end-transform: var(--portrait-rest-transform);
+  animation: layer-orbit 820ms cubic-bezier(0.55, 0.05, 0.18, 1) both;
+}
+
+@keyframes layer-orbit {
+  0% {
+    z-index: 4;
+    transform: var(--orbit-start-transform);
+  }
+
+  44% {
+    z-index: 4;
+    transform: translateX(112%) rotate(-8deg) scale(0.98);
+  }
+
+  52% {
+    z-index: 0;
+    transform: translateX(112%) rotate(-8deg) scale(0.98);
+  }
+
+  100% {
+    z-index: 0;
+    transform: var(--orbit-end-transform);
+  }
+}
+
+.visual-swap-button {
+  position: absolute;
+  z-index: 5;
+  right: 8px;
+  top: -22px;
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 13px 0 10px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--acid);
+  box-shadow: 4px 4px 0 var(--ink);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: var(--font-mono), monospace;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.visual-swap-button:hover {
+  box-shadow: 6px 6px 0 var(--blue);
+  transform: translate(-2px, -2px);
+}
+
+.visual-swap-button:disabled {
+  cursor: wait;
+}
+
+.visual-swap-button:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+}
+
+.visual-swap-button svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hero-visual.is-swapped .visual-swap-button svg {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-visual.is-animating.moving-signal .signal-card,
+  .hero-visual.is-animating.moving-portrait .portrait-frame {
+    animation-duration: 1ms;
+  }
 }
 
 .hero-visual .signal-score {
@@ -528,6 +668,91 @@ h1 em {
   color: var(--muted);
   font-size: 15px;
   line-height: 1.75;
+}
+
+.resume-download {
+  display: grid;
+  width: min(100%, 330px);
+  grid-template-columns: auto 1fr auto;
+  gap: 13px;
+  align-items: center;
+  padding: 10px 12px 10px 10px;
+  border: 1px solid var(--ink);
+  background: var(--paper-bright);
+  box-shadow: 5px 5px 0 var(--blue);
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.resume-download:hover {
+  background: var(--ink);
+  color: white;
+  box-shadow: 7px 7px 0 var(--acid);
+  transform: translate(-2px, -2px);
+}
+
+.resume-download:focus-visible {
+  outline: 3px solid var(--acid);
+  outline-offset: 4px;
+}
+
+.resume-download-icon {
+  display: grid;
+  width: 39px;
+  height: 39px;
+  place-items: center;
+  background: var(--acid);
+  color: var(--ink);
+}
+
+.resume-download-icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.resume-download-copy {
+  display: grid;
+  gap: 3px;
+}
+
+.resume-download-copy strong {
+  font-size: 12px;
+  letter-spacing: -0.01em;
+}
+
+.resume-download-copy small {
+  color: var(--muted);
+  font-family: var(--font-mono), monospace;
+  font-size: 7px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 180ms ease;
+}
+
+.resume-download:hover .resume-download-copy small {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.resume-download-arrow {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  transition: transform 180ms ease;
+}
+
+.resume-download-arrow svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.resume-download:hover .resume-download-arrow {
+  transform: translate(2px, -2px);
 }
 
 .placeholder-link {
@@ -983,27 +1208,123 @@ h1 em {
   color: rgba(255, 255, 255, 0.62);
 }
 
-.philosophy-intro {
+.ai-workflow-break {
+  padding: clamp(72px, 8vw, 120px) 0 90px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.ai-workflow {
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: var(--blue);
+  color: white;
+}
+
+.ai-workflow-heading {
   display: grid;
-  grid-template-columns: minmax(280px, 0.7fr) minmax(420px, 1fr);
-  gap: 8vw;
-  margin: 0 0 90px calc(35% + 1vw);
-  padding-top: 44px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  grid-template-columns: minmax(320px, 0.85fr) minmax(360px, 1fr);
+  gap: clamp(42px, 8vw, 120px);
+  align-items: end;
+  padding: clamp(38px, 5vw, 70px);
 }
 
-.philosophy-lead {
+.ai-workflow-heading .card-label {
+  color: var(--acid);
+}
+
+.ai-workflow-heading h3 {
+  max-width: 680px;
+  margin-bottom: 0;
+  font-size: clamp(3.4rem, 6vw, 7rem);
+  letter-spacing: -0.065em;
+  line-height: 0.92;
+}
+
+.ai-workflow-heading h3 em {
+  color: var(--acid);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.8rem, 3vw, 3.6rem);
-  font-style: italic;
-  letter-spacing: -0.035em;
-  line-height: 1.12;
+  font-weight: 400;
 }
 
-.philosophy-copy p {
-  color: rgba(255, 255, 255, 0.68);
+.ai-workflow-heading > p {
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.76);
   font-size: 16px;
   line-height: 1.8;
+}
+
+.ai-workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid rgba(255, 255, 255, 0.24);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.ai-workflow-grid section {
+  min-width: 0;
+  padding: clamp(28px, 3.5vw, 48px);
+}
+
+.ai-workflow-grid section + section {
+  border-left: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.ai-workflow-grid span {
+  color: var(--acid);
+  font-family: var(--font-mono), monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ai-workflow-grid h4 {
+  margin: 20px 0 14px;
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  letter-spacing: -0.035em;
+}
+
+.ai-workflow-grid p {
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.ai-workflow code {
+  display: inline-block;
+  padding: 2px 5px;
+  background: var(--acid);
+  color: var(--ink);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.78em;
+  font-weight: 700;
+}
+
+.ai-workflow-close {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) auto;
+  gap: 48px;
+  align-items: center;
+  padding: 28px clamp(28px, 5vw, 70px);
+  background: var(--ink);
+}
+
+.ai-workflow-close p {
+  max-width: 760px;
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.ai-workflow-close strong {
+  color: var(--acid);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.6rem, 3vw, 3rem);
+  font-style: italic;
+  font-weight: 400;
+  white-space: nowrap;
 }
 
 .principle-grid {
@@ -1570,10 +1891,6 @@ footer p {
     grid-column: span 6;
   }
 
-  .philosophy-intro {
-    margin-left: 0;
-  }
-
   .principle-grid {
     grid-template-columns: 1fr;
   }
@@ -1614,6 +1931,7 @@ footer p {
   }
 
   .wordmark small,
+  .wordmark-pronunciation,
   .header-cta {
     display: none;
   }
@@ -1688,7 +2006,9 @@ footer p {
   .writing-callout,
   .whoami-intro,
     .identity-grid,
-    .philosophy-intro,
+    .ai-workflow-heading,
+    .ai-workflow-grid,
+    .ai-workflow-close,
   .principle-grid,
   .philosophy-quote,
   .bar-story,
@@ -1820,9 +2140,35 @@ footer p {
     margin-right: 10px;
   }
 
-  .philosophy-intro {
+  .ai-workflow-break {
+    padding: 60px 0;
+  }
+
+  .ai-workflow-heading {
     gap: 28px;
-    margin: 0 0 60px;
+    padding: 34px 24px;
+  }
+
+  .ai-workflow-heading h3 {
+    font-size: clamp(3.2rem, 15vw, 5rem);
+  }
+
+  .ai-workflow-grid section {
+    padding: 30px 24px;
+  }
+
+  .ai-workflow-grid section + section {
+    border-top: 1px solid rgba(255, 255, 255, 0.24);
+    border-left: 0;
+  }
+
+  .ai-workflow-close {
+    gap: 20px;
+    padding: 28px 24px 32px;
+  }
+
+  .ai-workflow-close strong {
+    white-space: normal;
   }
 
   .principle-grid {
