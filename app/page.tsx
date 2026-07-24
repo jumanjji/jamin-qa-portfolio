@@ -1,7 +1,10 @@
 import HeroVisual from "./HeroVisual";
 
 const githubUrl = "https://github.com/jumanjji";
+const appiumRepoUrl = "https://github.com/jumanjji/appium-starter";
+const playwrightRepoUrl = "https://github.com/jumanjji/playwright-starter";
 const linkedInUrl = "https://www.linkedin.com/in/jamin-chaput/";
+const mediumUrl = "https://medium.com/@jamin.chaput";
 const assetBasePath = process.env.PAGES_BASE_PATH ?? "";
 
 const ArrowIcon = () => (
@@ -265,8 +268,8 @@ export default function Home() {
                 <li>CI-ready structure</li>
                 <li>Project-neutral</li>
               </ul>
-              <a href={githubUrl} target="_blank" rel="noreferrer">
-                Add repository URL <ExternalIcon />
+              <a href={appiumRepoUrl} target="_blank" rel="noreferrer">
+                View repository <ExternalIcon />
               </a>
             </div>
           </article>
@@ -291,8 +294,8 @@ export default function Home() {
                 <li>Web + API</li>
                 <li>Scalable patterns</li>
               </ul>
-              <a href={githubUrl} target="_blank" rel="noreferrer">
-                Add repository URL <ExternalIcon />
+              <a href={playwrightRepoUrl} target="_blank" rel="noreferrer">
+                View repository <ExternalIcon />
               </a>
             </div>
           </article>
@@ -335,13 +338,14 @@ export default function Home() {
               Occasionally I jot down my thoughts on Medium about testing,
               automation practices, and other subjects.
             </p>
-            <span
+            <a
               className="placeholder-link placeholder-link-dark"
-              role="link"
-              aria-disabled="true"
+              href={mediumUrl}
+              target="_blank"
+              rel="noreferrer"
             >
-              Visit my Medium <span>Link coming soon</span>
-            </span>
+              Visit my Medium <ExternalIcon />
+            </a>
           </div>
         </aside>
       </section>

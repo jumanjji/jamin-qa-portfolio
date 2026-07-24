@@ -809,7 +809,7 @@ h1 em {
   border-bottom: 1px solid currentColor;
   font-size: 12px;
   font-weight: 800;
-  cursor: default;
+  cursor: pointer;
 }
 
 .placeholder-link > span {
