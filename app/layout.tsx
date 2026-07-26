@@ -6,7 +6,7 @@ const assetBasePath = process.env.PAGES_BASE_PATH ?? "";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jamin.qa"),
-  title: "Jamin — Quality Engineering Analyst",
+  title: "Jamin — Quality Engineering",
   description:
     "Quality engineering portfolio featuring mobile, web, API, Appium, and Playwright experience.",
   icons: {
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://jamin.qa",
-    title: "Jamin — Quality Engineering Analyst",
+    title: "Jamin — Quality Engineering",
     description:
       "I find the gaps between expected and actual, helping teams ship with confidence.",
     siteName: "Jamin Chaput",
@@ -25,13 +25,13 @@ export const metadata: Metadata = {
         url: "https://jamin.qa/og.png",
         width: 1200,
         height: 630,
-        alt: "Jamin Chaput — Quality Engineering Analyst",
+        alt: "Jamin Chaput — Quality Engineering",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jamin — Quality Engineering Analyst",
+    title: "Jamin — Quality Engineering",
     description:
       "I find the gaps between expected and actual, helping teams ship with confidence.",
     images: ["https://jamin.qa/og.png"],
