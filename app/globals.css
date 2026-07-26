@@ -268,8 +268,7 @@ footer a:hover::after {
 .section-number,
 .card-label,
 .repo-kicker,
-.signal-card,
-.scroll-cue {
+.signal-card {
   font-family: var(--font-mono), "SFMono-Regular", Consolas, monospace;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -653,17 +652,6 @@ h1 em {
   to {
     transform: translateY(700%);
   }
-}
-
-.scroll-cue {
-  position: absolute;
-  right: 4vw;
-  bottom: 28px;
-  left: 4vw;
-  display: flex;
-  justify-content: space-between;
-  color: var(--muted);
-  font-size: 8px;
 }
 
 .section {
@@ -2066,10 +2054,6 @@ footer p {
   .mobile-swap-label:active {
     box-shadow: 2px 2px 0 var(--blue);
     transform: translate(2px, 2px) scale(0.98);
-  }
-
-  .scroll-cue {
-    display: none;
   }
 
   .section {
