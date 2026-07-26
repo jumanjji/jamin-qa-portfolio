@@ -4,6 +4,10 @@ import { useEffect } from "react";
 import * as amplitude from "@amplitude/unified";
 
 const apiKey = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
+const localAnalyticsEnabled =
+  process.env.NEXT_PUBLIC_AMPLITUDE_LOCAL_ENABLED === "true";
+const analyticsEnabled =
+  process.env.NODE_ENV === "production" || localAnalyticsEnabled;
 const pageName = "Home";
 const pageType = "Portfolio";
 const inactivityTimeoutMs = 30_000;
@@ -55,6 +59,8 @@ const getSectionName = () => {
 
 export default function AmplitudeAnalytics() {
   useEffect(() => {
+    if (!analyticsEnabled) return;
+
     if (!apiKey) {
       console.warn("Amplitude API key missing — analytics disabled");
       return;
