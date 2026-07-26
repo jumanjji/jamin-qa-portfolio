@@ -188,9 +188,10 @@ export default function Home() {
             <p>
               Native mobile apps are my specialty: understanding how iOS and
               Android should feel, not only whether they technically work. I
-              also bring deep familiarity with product analytics, from
-              structuring clear event schemas to validating the signals teams
-              use to understand real user behaviour.
+              also bring experience structuring event taxonomies for product
+              analytics, writing technical specifications for development
+              teams, and working with industry-standard tools such as Jira,
+              Firebase, and Zendesk.
             </p>
             <a
               className="resume-download"
@@ -672,17 +673,17 @@ export default function Home() {
 
         <div className="whoami-intro">
           <p className="about-lead">
-            I like working for people who are looking for a person, not just a
-            set of skills.
+            I like to work for companies who are looking to hire a person, not
+            just a set of skills.
           </p>
           <div className="about-copy">
             <p>
               Curiosity shapes how I test, but it also shapes the rest of my
               life. I am always learning a language, carrying a camera, reading
               one more chapter, or finding a reason to get beneath the surface.
-              Those interests are not separate from how I work, they are where
+              Those interests are not separate from how I work; they are where
               my attention to detail, empathy, and sense of exploration come
-              from.
+              from. So come and get to know me!
             </p>
           </div>
         </div>
@@ -865,6 +866,11 @@ export default function Home() {
             Want to talk mobile testing, automation strategy, or a role where
             product thinking and quality engineering meet? Or would you like
             a similar portfolio for your own work? I&apos;d love to hear from you.
+            {" "}You can reach me directly at{" "}
+            <a className="contact-email" href="mailto:hello@jamin.qa">
+              hello@jamin.qa
+            </a>
+            .
           </p>
         </div>
         <div className="contact-links">
@@ -907,7 +913,7 @@ export default function Home() {
             data-analytics-destination-name="Email"
             data-analytics-contact-method="Email"
           >
-            Add email <ArrowIcon />
+            Email me <ArrowIcon />
           </a>
         </div>
       </section>

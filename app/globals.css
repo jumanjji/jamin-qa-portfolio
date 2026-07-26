@@ -1841,6 +1841,16 @@ h1 em {
   line-height: 1.7;
 }
 
+.contact-main .contact-email {
+  border-bottom: 1px solid currentColor;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.contact-main .contact-email:hover {
+  border-bottom-color: transparent;
+}
+
 .contact-links {
   display: grid;
   gap: 1px;
