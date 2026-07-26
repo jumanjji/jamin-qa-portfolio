@@ -7,17 +7,38 @@ const apiKey = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
 const pageName = "Home";
 const pageType = "Portfolio";
 const inactivityTimeoutMs = 30_000;
+const maxEventsPerPageView = 100;
 const scrollDepthThresholds = [25, 50, 75, 90];
 const engagementMilestones = [15, 30, 60, 120];
 
 let initializationStarted = false;
 let pageViewId: string | undefined;
 let pageViewTracked = false;
+let trackedEventCount = 0;
+let eventBudgetWarningShown = false;
 
 const createPageViewId = () =>
   typeof crypto.randomUUID === "function"
     ? crypto.randomUUID()
     : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+const trackEvent = (
+  eventName: string,
+  eventProperties: Record<string, unknown>,
+) => {
+  if (trackedEventCount >= maxEventsPerPageView) {
+    if (!eventBudgetWarningShown) {
+      eventBudgetWarningShown = true;
+      console.warn(
+        `Amplitude event budget reached — further events disabled for this page view`,
+      );
+    }
+    return;
+  }
+
+  trackedEventCount += 1;
+  amplitude.track(eventName, eventProperties);
+};
 
 const getSectionName = () => {
   const centeredElement = document.elementFromPoint(
@@ -59,7 +80,7 @@ export default function AmplitudeAnalytics() {
 
     if (!pageViewTracked) {
       pageViewTracked = true;
-      amplitude.track("Viewed Page", baseProperties());
+      trackEvent("Viewed Page", baseProperties());
     }
 
     const sectionTimers = new Map<Element, ReturnType<typeof setTimeout>>();
@@ -84,7 +105,7 @@ export default function AmplitudeAnalytics() {
               sectionTimers.delete(marker);
               sectionObserver.unobserve(marker);
 
-              amplitude.track("Viewed Section", {
+              trackEvent("Viewed Section", {
                 ...baseProperties(),
                 section_name: sectionName,
                 section_position: Number(
@@ -131,7 +152,7 @@ export default function AmplitudeAnalytics() {
           !reachedScrollDepths.has(threshold)
         ) {
           reachedScrollDepths.add(threshold);
-          amplitude.track("Reached Scroll Depth", {
+          trackEvent("Reached Scroll Depth", {
             ...baseProperties(),
             scroll_depth_percent: threshold,
           });
@@ -167,7 +188,7 @@ export default function AmplitudeAnalytics() {
           !reachedEngagementMilestones.has(milestone)
         ) {
           reachedEngagementMilestones.add(milestone);
-          amplitude.track("Reached Engagement Milestone", {
+          trackEvent("Reached Engagement Milestone", {
             ...baseProperties(),
             engagement_seconds: milestone,
             section_name: getSectionName(),
@@ -196,7 +217,7 @@ export default function AmplitudeAnalytics() {
         "";
 
       if (clickType === "Link") {
-        amplitude.track("Clicked Link", {
+        trackEvent("Clicked Link", {
           ...baseProperties(),
           section_name: sectionName,
           link_type: trackedElement.dataset.analyticsType,
@@ -226,7 +247,7 @@ export default function AmplitudeAnalytics() {
       }
 
       if (clickType === "Button") {
-        amplitude.track("Clicked Button", {
+        trackEvent("Clicked Button", {
           ...baseProperties(),
           section_name: sectionName,
           button_type: trackedElement.dataset.analyticsType,
@@ -247,7 +268,7 @@ export default function AmplitudeAnalytics() {
       measureScrollDepth();
 
       amplitude.setTransport("beacon");
-      amplitude.track("Ended Page View", {
+      trackEvent("Ended Page View", {
         ...baseProperties(),
         active_time_seconds: Math.round(activeTimeMs / 100) / 10,
         elapsed_time_seconds:
