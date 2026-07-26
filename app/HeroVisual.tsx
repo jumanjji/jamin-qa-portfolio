@@ -126,6 +126,11 @@ export default function HeroVisual({ assetBasePath }: HeroVisualProps) {
         }
         aria-pressed={portraitInFront}
         disabled={movingCard !== null}
+        data-analytics-click="Button"
+        data-analytics-type="Interactive"
+        data-analytics-name="Hero Layer Swap"
+        data-analytics-location="Hero"
+        data-analytics-interaction-type="Swap Layers"
         onPointerDown={(event) => {
           if (event.pointerType !== "mouse") {
             suppressNextClick.current = true;
@@ -153,6 +158,11 @@ export default function HeroVisual({ assetBasePath }: HeroVisualProps) {
       <label
         className="visual-swap-button mobile-swap-label"
         htmlFor="mobile-layer-toggle"
+        data-analytics-click="Button"
+        data-analytics-type="Interactive"
+        data-analytics-name="Hero Layer Swap"
+        data-analytics-location="Hero"
+        data-analytics-interaction-type="Swap Layers"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
           <path

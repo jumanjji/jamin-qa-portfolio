@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import AmplitudeAnalytics from "./AmplitudeAnalytics";
 import "./globals.css";
 
 const assetBasePath = process.env.PAGES_BASE_PATH ?? "";
@@ -23,7 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AmplitudeAnalytics />
+        {children}
+      </body>
     </html>
   );
 }

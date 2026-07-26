@@ -34,6 +34,7 @@ jobs:
         run: npm run build:pages
         env:
           PAGES_BASE_PATH: ""
+          NEXT_PUBLIC_AMPLITUDE_API_KEY: "2476f25001541827ef371db02add9ddf"
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

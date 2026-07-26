@@ -33,8 +33,19 @@ const ExternalIcon = () => (
 export default function Home() {
   return (
     <main>
-      <header className="site-header">
-        <a className="wordmark" href="#top" aria-label="Jamin, home">
+      <header className="site-header" data-analytics-section="Header">
+        <a
+          className="wordmark"
+          href="#top"
+          aria-label="Jamin, home"
+          data-analytics-click="Link"
+          data-analytics-type="Navigation"
+          data-analytics-name="Home"
+          data-analytics-text="Jamin"
+          data-analytics-location="Header"
+          data-analytics-destination-type="Section"
+          data-analytics-destination-name="Hero"
+        >
           <span className="wordmark-mark" aria-hidden="true">
             J
           </span>
@@ -53,19 +64,73 @@ export default function Home() {
         </a>
 
         <nav aria-label="Primary navigation">
-          <a href="#work">Work</a>
-          <a href="#philosophy">Philosophy</a>
-          <a href="#about">Who am I?</a>
-          <a href="#contact">Contact</a>
+          <a
+            href="#work"
+            data-analytics-click="Link"
+            data-analytics-type="Navigation"
+            data-analytics-name="Work"
+            data-analytics-location="Header"
+            data-analytics-destination-type="Section"
+            data-analytics-destination-name="Selected Work"
+          >
+            Work
+          </a>
+          <a
+            href="#philosophy"
+            data-analytics-click="Link"
+            data-analytics-type="Navigation"
+            data-analytics-name="Philosophy"
+            data-analytics-location="Header"
+            data-analytics-destination-type="Section"
+            data-analytics-destination-name="Philosophy"
+          >
+            Philosophy
+          </a>
+          <a
+            href="#about"
+            data-analytics-click="Link"
+            data-analytics-type="Navigation"
+            data-analytics-name="About"
+            data-analytics-location="Header"
+            data-analytics-destination-type="Section"
+            data-analytics-destination-name="About"
+          >
+            Who am I?
+          </a>
+          <a
+            href="#contact"
+            data-analytics-click="Link"
+            data-analytics-type="Navigation"
+            data-analytics-name="Contact"
+            data-analytics-location="Header"
+            data-analytics-destination-type="Section"
+            data-analytics-destination-name="Contact"
+          >
+            Contact
+          </a>
         </nav>
 
-        <a className="header-cta" href="#contact">
+        <a
+          className="header-cta"
+          href="#contact"
+          data-analytics-click="Link"
+          data-analytics-type="CTA"
+          data-analytics-name="Lets Talk"
+          data-analytics-location="Header"
+          data-analytics-destination-type="Section"
+          data-analytics-destination-name="Contact"
+        >
           Let&apos;s talk <ArrowIcon />
         </a>
       </header>
 
-      <section className="hero" id="top">
-        <div className="hero-copy">
+      <section
+        className="hero"
+        id="top"
+        data-analytics-section="Hero"
+        data-analytics-section-position="1"
+      >
+        <div className="hero-copy" data-analytics-view-marker>
           <p className="eyebrow">
             <span className="status-dot" />
             Quality Engineering Analyst · Toronto
@@ -79,10 +144,28 @@ export default function Home() {
             confidence.
           </p>
           <div className="hero-actions">
-            <a className="button button-primary" href="#work">
+            <a
+              className="button button-primary"
+              href="#work"
+              data-analytics-click="Link"
+              data-analytics-type="CTA"
+              data-analytics-name="Explore Work"
+              data-analytics-location="Hero"
+              data-analytics-destination-type="Section"
+              data-analytics-destination-name="Selected Work"
+            >
               Explore my work <ArrowIcon />
             </a>
-            <a className="text-link" href="#about">
+            <a
+              className="text-link"
+              href="#about"
+              data-analytics-click="Link"
+              data-analytics-type="CTA"
+              data-analytics-name="Meet Jamin"
+              data-analytics-location="Hero"
+              data-analytics-destination-type="Section"
+              data-analytics-destination-name="About"
+            >
               Meet the person behind the test plan
             </a>
           </div>
@@ -90,14 +173,15 @@ export default function Home() {
 
         <HeroVisual assetBasePath={assetBasePath} />
 
-        <a className="scroll-cue" href="#work" aria-label="Scroll to work">
-          <span>SCROLL TO PROOF</span>
-          <span aria-hidden="true">↓</span>
-        </a>
       </section>
 
-      <section className="section work-section" id="work">
-        <div className="section-heading">
+      <section
+        className="section work-section"
+        id="work"
+        data-analytics-section="Selected Work"
+        data-analytics-section-position="2"
+      >
+        <div className="section-heading" data-analytics-view-marker>
           <p className="section-number">01 / Selected work</p>
           <h2>Useful confidence, not just more test cases.</h2>
           <div className="work-heading-copy">
@@ -112,6 +196,15 @@ export default function Home() {
               className="resume-download"
               href={`${assetBasePath}/Jamin_Chaput_résumé.pdf`}
               download
+              data-analytics-click="Link"
+              data-analytics-type="Download"
+              data-analytics-name="Resume"
+              data-analytics-text="Download résumé"
+              data-analytics-location="Selected Work"
+              data-analytics-destination-type="File"
+              data-analytics-destination-name="Resume"
+              data-analytics-file-name="Resume"
+              data-analytics-file-type="PDF"
             >
               <span className="resume-download-icon" aria-hidden="true">
                 <svg viewBox="0 0 20 20" fill="none">
@@ -268,7 +361,18 @@ export default function Home() {
                 <li>CI-ready structure</li>
                 <li>Project-neutral</li>
               </ul>
-              <a href={appiumRepoUrl} target="_blank" rel="noreferrer">
+              <a
+                href={appiumRepoUrl}
+                target="_blank"
+                rel="noreferrer"
+                data-analytics-click="Link"
+                data-analytics-type="External"
+                data-analytics-name="Appium Starter"
+                data-analytics-location="Selected Work"
+                data-analytics-destination-type="Repository"
+                data-analytics-destination-name="Appium Starter"
+                data-analytics-domain="github.com"
+              >
                 View repository <ExternalIcon />
               </a>
             </div>
@@ -294,7 +398,18 @@ export default function Home() {
                 <li>Web + API</li>
                 <li>Scalable patterns</li>
               </ul>
-              <a href={playwrightRepoUrl} target="_blank" rel="noreferrer">
+              <a
+                href={playwrightRepoUrl}
+                target="_blank"
+                rel="noreferrer"
+                data-analytics-click="Link"
+                data-analytics-type="External"
+                data-analytics-name="Playwright Starter"
+                data-analytics-location="Selected Work"
+                data-analytics-destination-type="Repository"
+                data-analytics-destination-name="Playwright Starter"
+                data-analytics-domain="github.com"
+              >
                 View repository <ExternalIcon />
               </a>
             </div>
@@ -343,6 +458,13 @@ export default function Home() {
               href={mediumUrl}
               target="_blank"
               rel="noreferrer"
+              data-analytics-click="Link"
+              data-analytics-type="External"
+              data-analytics-name="Medium"
+              data-analytics-location="Selected Work"
+              data-analytics-destination-type="Writing"
+              data-analytics-destination-name="Medium"
+              data-analytics-domain="medium.com"
             >
               Visit my Medium <ExternalIcon />
             </a>
@@ -350,8 +472,16 @@ export default function Home() {
         </aside>
       </section>
 
-      <section className="section philosophy-section" id="philosophy">
-        <div className="section-heading philosophy-heading">
+      <section
+        className="section philosophy-section"
+        id="philosophy"
+        data-analytics-section="Philosophy"
+        data-analytics-section-position="3"
+      >
+        <div
+          className="section-heading philosophy-heading"
+          data-analytics-view-marker
+        >
           <p className="section-number">02 / My QA philosophy</p>
           <h2>Quality starts with people.</h2>
           <p>
@@ -526,8 +656,16 @@ export default function Home() {
         </article>
       </section>
 
-      <section className="section about-section" id="about">
-        <div className="section-heading about-heading">
+      <section
+        className="section about-section"
+        id="about"
+        data-analytics-section="About"
+        data-analytics-section-position="4"
+      >
+        <div
+          className="section-heading about-heading"
+          data-analytics-view-marker
+        >
           <p className="section-number">03 / Who am I?</p>
           <h2>More than a set of skills.</h2>
         </div>
@@ -695,6 +833,13 @@ export default function Home() {
                     href="https://letterboxd.com/jumanjji/"
                     target="_blank"
                     rel="noreferrer"
+                    data-analytics-click="Link"
+                    data-analytics-type="External"
+                    data-analytics-name="Letterboxd"
+                    data-analytics-location="About"
+                    data-analytics-destination-type="Social Profile"
+                    data-analytics-destination-name="Letterboxd"
+                    data-analytics-domain="letterboxd.com"
                   >
                     Check out my Letterboxd <ExternalIcon />
                   </a>
@@ -705,11 +850,16 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="contact-section" id="contact">
+      <section
+        className="contact-section"
+        id="contact"
+        data-analytics-section="Contact"
+        data-analytics-section-position="5"
+      >
         <p className="section-number" style={{ alignSelf: "start" }}>
           04 / Connect
         </p>
-        <div className="contact-main">
+        <div className="contact-main" data-analytics-view-marker>
           <h2>Let&apos;s make quality a feature.</h2>
           <p>
             Want to talk mobile testing, automation strategy, or a role where
@@ -718,24 +868,66 @@ export default function Home() {
           </p>
         </div>
         <div className="contact-links">
-          <a href={linkedInUrl} target="_blank" rel="noreferrer">
+          <a
+            href={linkedInUrl}
+            target="_blank"
+            rel="noreferrer"
+            data-analytics-click="Link"
+            data-analytics-type="Contact"
+            data-analytics-name="LinkedIn"
+            data-analytics-location="Contact"
+            data-analytics-destination-type="Social Profile"
+            data-analytics-destination-name="LinkedIn"
+            data-analytics-domain="linkedin.com"
+            data-analytics-contact-method="LinkedIn"
+          >
             LinkedIn <ExternalIcon />
           </a>
-          <a href={githubUrl} target="_blank" rel="noreferrer">
+          <a
+            href={githubUrl}
+            target="_blank"
+            rel="noreferrer"
+            data-analytics-click="Link"
+            data-analytics-type="External"
+            data-analytics-name="GitHub"
+            data-analytics-location="Contact"
+            data-analytics-destination-type="Social Profile"
+            data-analytics-destination-name="GitHub"
+            data-analytics-domain="github.com"
+          >
             GitHub <ExternalIcon />
           </a>
-          <a href="mailto:hello@jamin.qa">
+          <a
+            href="mailto:hello@jamin.qa"
+            data-analytics-click="Link"
+            data-analytics-type="Contact"
+            data-analytics-name="Email"
+            data-analytics-location="Contact"
+            data-analytics-destination-type="Email"
+            data-analytics-destination-name="Email"
+            data-analytics-contact-method="Email"
+          >
             Add email <ArrowIcon />
           </a>
         </div>
       </section>
 
-      <footer>
+      <footer data-analytics-section="Footer">
         <p>
           © {new Date().getFullYear()} Jamin · Built with care, tested with
           intent.
         </p>
-        <a href="#top">Back to top ↑</a>
+        <a
+          href="#top"
+          data-analytics-click="Link"
+          data-analytics-type="Navigation"
+          data-analytics-name="Back to Top"
+          data-analytics-location="Footer"
+          data-analytics-destination-type="Section"
+          data-analytics-destination-name="Hero"
+        >
+          Back to top ↑
+        </a>
       </footer>
     </main>
   );
