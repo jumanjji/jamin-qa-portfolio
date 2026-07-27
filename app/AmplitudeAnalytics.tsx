@@ -1,65 +1,86 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import * as amplitude from "@amplitude/unified";
+import {
+  ANALYTICS_OPT_OUT_KEY,
+  ANALYTICS_PREFERENCE_EVENT,
+  isAnalyticsOptedOut,
+} from "./analytics-preferences";
 
 const apiKey = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
 const localAnalyticsEnabled =
   process.env.NEXT_PUBLIC_AMPLITUDE_LOCAL_ENABLED === "true";
-const analyticsEnabled =
+const analyticsAvailable =
   process.env.NODE_ENV === "production" || localAnalyticsEnabled;
-const pageName = "Home";
-const pageType = "Portfolio";
 const inactivityTimeoutMs = 30_000;
 const maxEventsPerPageView = 100;
 const scrollDepthThresholds = [25, 50, 75, 90];
 const engagementMilestones = [15, 30, 60, 120];
 
 let initializationStarted = false;
-let pageViewId: string | undefined;
-let pageViewTracked = false;
-let trackedEventCount = 0;
-let eventBudgetWarningShown = false;
 
 const createPageViewId = () =>
   typeof crypto.randomUUID === "function"
     ? crypto.randomUUID()
     : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
-const trackEvent = (
-  eventName: string,
-  eventProperties: Record<string, unknown>,
-) => {
-  if (trackedEventCount >= maxEventsPerPageView) {
-    if (!eventBudgetWarningShown) {
-      eventBudgetWarningShown = true;
-      console.warn(
-        `Amplitude event budget reached — further events disabled for this page view`,
-      );
-    }
-    return;
-  }
+const getPageDetails = (pathname: string) =>
+  pathname.endsWith("/privacy") || pathname.endsWith("/privacy/")
+    ? { pageName: "Privacy", pageType: "Policy" }
+    : { pageName: "Home", pageType: "Portfolio" };
 
-  trackedEventCount += 1;
-  amplitude.track(eventName, eventProperties);
+const getBrowserTimeZone = () => {
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+  } catch {
+    return undefined;
+  }
 };
 
-const getSectionName = () => {
-  const centeredElement = document.elementFromPoint(
-    window.innerWidth / 2,
-    window.innerHeight / 2,
-  );
+const getReferringDomain = () => {
+  if (!document.referrer) return undefined;
 
-  return (
-    centeredElement
-      ?.closest<HTMLElement>("[data-analytics-section]")
-      ?.dataset.analyticsSection ?? "Unknown"
-  );
+  try {
+    return new URL(document.referrer).hostname || undefined;
+  } catch {
+    return undefined;
+  }
 };
 
 export default function AmplitudeAnalytics() {
+  const pathname = usePathname();
+  const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null);
+
   useEffect(() => {
-    if (!analyticsEnabled) return;
+    const applyPreference = (optedOut: boolean) => {
+      if (initializationStarted) {
+        amplitude.setOptOut(optedOut);
+      }
+      setTrackingEnabled(!optedOut);
+    };
+    const handlePreference = (event: Event) => {
+      applyPreference((event as CustomEvent<boolean>).detail);
+    };
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === ANALYTICS_OPT_OUT_KEY) {
+        applyPreference(isAnalyticsOptedOut());
+      }
+    };
+
+    applyPreference(isAnalyticsOptedOut());
+    window.addEventListener(ANALYTICS_PREFERENCE_EVENT, handlePreference);
+    window.addEventListener("storage", handleStorage);
+
+    return () => {
+      window.removeEventListener(ANALYTICS_PREFERENCE_EVENT, handlePreference);
+      window.removeEventListener("storage", handleStorage);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!analyticsAvailable || trackingEnabled !== true) return;
 
     if (!apiKey) {
       console.warn("Amplitude API key missing — analytics disabled");
@@ -69,29 +90,78 @@ export default function AmplitudeAnalytics() {
     if (!initializationStarted) {
       initializationStarted = true;
       void amplitude.initAll(apiKey, {
-        analytics: { autocapture: false },
-        engagement: { skip: true },
+        analytics: {
+          autocapture: false,
+          trackingOptions: {
+            ipAddress: false,
+          },
+        },
+        sessionReplay: {
+          sampleRate: 0,
+        },
+        engagement: {
+          skip: true,
+        },
       });
+    } else {
+      amplitude.setOptOut(false);
     }
 
-    pageViewId ??= createPageViewId();
+    const { pageName, pageType } = getPageDetails(pathname);
+    const pageViewId = createPageViewId();
+    const browserTimeZone = getBrowserTimeZone();
+    const referringDomain = getReferringDomain();
+    let trackedEventCount = 0;
+    let eventBudgetWarningShown = false;
+    let runtimeTrackingEnabled = true;
+
+    const trackEvent = (
+      eventName: string,
+      eventProperties: Record<string, unknown>,
+    ) => {
+      if (!runtimeTrackingEnabled || isAnalyticsOptedOut()) return;
+
+      if (trackedEventCount >= maxEventsPerPageView) {
+        if (!eventBudgetWarningShown) {
+          eventBudgetWarningShown = true;
+          console.warn(
+            "Amplitude event budget reached — further events disabled for this page view",
+          );
+        }
+        return;
+      }
+
+      trackedEventCount += 1;
+      amplitude.track(eventName, eventProperties);
+    };
 
     const baseProperties = () => ({
       page_name: pageName,
       page_type: pageType,
-      page_path: window.location.pathname,
+      page_path: pathname,
       page_view_id: pageViewId,
       environment: process.env.NODE_ENV,
+      ...(browserTimeZone ? { browser_time_zone: browserTimeZone } : {}),
+      ...(referringDomain ? { referring_domain: referringDomain } : {}),
     });
 
-    if (!pageViewTracked) {
-      pageViewTracked = true;
-      trackEvent("Viewed Page", baseProperties());
-    }
+    const getSectionName = () => {
+      const centeredElement = document.elementFromPoint(
+        window.innerWidth / 2,
+        window.innerHeight / 2,
+      );
+
+      return (
+        centeredElement
+          ?.closest<HTMLElement>("[data-analytics-section]")
+          ?.dataset.analyticsSection ?? "Unknown"
+      );
+    };
+
+    trackEvent("Viewed Page", baseProperties());
 
     const sectionTimers = new Map<Element, ReturnType<typeof setTimeout>>();
     const viewedSections = new Set<string>();
-
     const sectionObserver = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -291,6 +361,12 @@ export default function AmplitudeAnalytics() {
       amplitude.setTransport("fetch");
     };
 
+    const handlePreference = (event: Event) => {
+      const optedOut = (event as CustomEvent<boolean>).detail;
+      runtimeTrackingEnabled = !optedOut;
+      amplitude.setOptOut(optedOut);
+    };
+
     const activityEvents: Array<keyof WindowEventMap> = [
       "keydown",
       "pointerdown",
@@ -306,8 +382,11 @@ export default function AmplitudeAnalytics() {
     document.addEventListener("click", handleClick);
     window.addEventListener("pagehide", endPageView);
     window.addEventListener("pageshow", restoreDefaultTransport);
+    window.addEventListener(ANALYTICS_PREFERENCE_EVENT, handlePreference);
 
     return () => {
+      if (runtimeTrackingEnabled) endPageView();
+      runtimeTrackingEnabled = false;
       sectionObserver.disconnect();
       sectionTimers.forEach((timer) => clearTimeout(timer));
       window.clearInterval(engagementTimer);
@@ -318,8 +397,9 @@ export default function AmplitudeAnalytics() {
       document.removeEventListener("click", handleClick);
       window.removeEventListener("pagehide", endPageView);
       window.removeEventListener("pageshow", restoreDefaultTransport);
+      window.removeEventListener(ANALYTICS_PREFERENCE_EVENT, handlePreference);
     };
-  }, []);
+  }, [pathname, trackingEnabled]);
 
   return null;
 }
