@@ -76,6 +76,9 @@ export default function HeroVisual({ assetBasePath }: HeroVisualProps) {
         <img
           src={`${assetBasePath}/jamin-portrait.webp`}
           alt="Portrait of Jamin"
+          width={1800}
+          height={1200}
+          fetchPriority="high"
         />
         <figcaption>
           <span>Jamin</span>

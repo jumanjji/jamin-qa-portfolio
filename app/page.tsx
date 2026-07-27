@@ -609,6 +609,10 @@ export default function Home() {
             <img
               src={`${assetBasePath}/qa-bar-illustration.webp`}
               alt="Editorial illustration of a tester at a bar surrounded by increasingly absurd edge cases"
+              width={1536}
+              height={1024}
+              loading="lazy"
+              decoding="async"
             />
             <span className="bar-caption">A short story about edge cases</span>
           </div>
@@ -708,6 +712,10 @@ export default function Home() {
               <img
                 src={`${assetBasePath}/culture-camp.webp`}
                 alt="A lodge among trees at an Indigenous cultural camp"
+                width={1350}
+                height={1800}
+                loading="lazy"
+                decoding="async"
               />
               <figcaption>Language camp · Northern Ontario</figcaption>
             </figure>
@@ -721,6 +729,10 @@ export default function Home() {
             <img
               src={`${assetBasePath}/whoami-reading.webp`}
               alt="Abstract illustration of an open book transforming into three orbiting celestial bodies"
+              width={1254}
+              height={1254}
+              loading="lazy"
+              decoding="async"
             />
             <div className="identity-card-body">
               <p className="identity-kicker">Reading</p>
@@ -742,6 +754,10 @@ export default function Home() {
             <img
               src={`${assetBasePath}/whoami-camera.webp`}
               alt="Abstract illustration of a compact film camera and curling strip of 35mm film"
+              width={1254}
+              height={1254}
+              loading="lazy"
+              decoding="async"
             />
             <div className="identity-card-body">
               <p className="identity-kicker">Photography</p>
@@ -763,6 +779,10 @@ export default function Home() {
             <img
               src={`${assetBasePath}/whoami-scuba.webp`}
               alt="Abstract illustration of a scuba diver exploring calm blue water"
+              width={1254}
+              height={1254}
+              loading="lazy"
+              decoding="async"
             />
             <div className="identity-card-body">
               <p className="identity-kicker">Scuba diving</p>
@@ -785,6 +805,10 @@ export default function Home() {
             <img
               src={`${assetBasePath}/whoami-languages.webp`}
               alt="Four abstract speech forms orbiting a globe"
+              width={1254}
+              height={1254}
+              loading="lazy"
+              decoding="async"
             />
             <div className="identity-card-body">
               <p className="identity-kicker">Languages</p>
@@ -822,6 +846,10 @@ export default function Home() {
                   <img
                     src={`${assetBasePath}/whoami-film.webp`}
                     alt="A film projector casting light through a sequence of cinematic frames"
+                    width={1800}
+                    height={1013}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </figure>
                 <div className="film-card-copy">
