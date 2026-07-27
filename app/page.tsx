@@ -1,4 +1,5 @@
 import HeroVisual from "./HeroVisual";
+import SiteFooter from "./SiteFooter";
 
 const githubUrl = "https://github.com/jumanjji";
 const appiumRepoUrl = "https://github.com/jumanjji/appium-starter";
@@ -946,23 +947,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer data-analytics-section="Footer">
-        <p>
-          © {new Date().getFullYear()} Jamin · Built with care, tested with
-          intent.
-        </p>
-        <a
-          href="#top"
-          data-analytics-click="Link"
-          data-analytics-type="Navigation"
-          data-analytics-name="Back to Top"
-          data-analytics-location="Footer"
-          data-analytics-destination-type="Section"
-          data-analytics-destination-name="Hero"
-        >
-          Back to top ↑
-        </a>
-      </footer>
+      <SiteFooter page="home" />
     </main>
   );
 }

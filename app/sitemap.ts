@@ -8,5 +8,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${siteUrl}/`,
     },
+    {
+      url: `${siteUrl}/privacy/`,
+    },
   ];
 }
